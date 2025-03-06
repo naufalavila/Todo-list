@@ -57,10 +57,6 @@
                         </div>
                     </div>
                 @endforeach
-
-                <small class="d-block text-end mt-3">
-                    <a href="#">All suggestions</a>
-                </small>
             </div>
         </div>
     </main>
