@@ -28,6 +28,10 @@
                 @endif
 
                 <button class="btn btn-success" type="submit">submit</button>
+                <a href="{{ route(name: 'home') }}" class="btn text-white"
+                    style="background-color: #1380d4; transition: background-color 0.3s;"
+                    onmouseover="this.style.backgroundColor='#0f6bac'"
+                    onmouseout="this.style.backgroundColor='#1380d4'">Back</a>
             </form>
         </div>
     </div>
