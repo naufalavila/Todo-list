@@ -37,4 +37,12 @@ Route::middleware("auth")->group( function () {
 
     Route::get("task/delete/{id}", [TaskManager::class, "deleteTask"])
     ->name('task.delete');
+
+    Route::get("task/edit/{id}", [TaskManager::class, "editTask"])
+    ->name("task.edit");
+
+    Route::post("task/edit/{id}", [TaskManager::class, "updateTask"])
+    ->name("task.update");
+
 });
+

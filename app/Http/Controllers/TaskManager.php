@@ -39,6 +39,32 @@ class TaskManager extends Controller
         ->with("error", "task cannot be added.");
     }
 
+    function editTask($id)
+    {
+        $task = Tasks::findOrFail($id);
+        return view("tasks.edit", compact("task"));
+    }
+
+    function updateTask(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required',
+            'deadline' => 'required|date',
+            'description' => 'required'
+        ]);
+
+        $task = Tasks::findOrFail($id);
+        $task->title = $request->title;
+        $task->deadline = $request->deadline;
+        $task->description = $request->description;
+
+        if ($task->save()) {
+            return redirect(route("home"))->with("success", "Task updated successfully!");
+        }
+        return redirect(route("task.edit", ['id' => $id]))
+        ->with("error", "Task update failed.");
+    }
+
     function updateTaskStatus($id)
     {
         if(Tasks::where('id', $id)->update(['status' => "completed"]))

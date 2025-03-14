@@ -51,6 +51,9 @@
                                     <a href="{{ route('task.delete', ['id' => $task->id]) }}" class="btn btn-danger">
                                         Delete
                                     </a>
+                                    <a href="{{ route('task.edit', ['id' => $task->id]) }}" class="btn btn-warning text-white">
+                                        Edit
+                                    </a>
                                 </div>
                             </div>
                             <span class="d-block">{{$task->description}}</span>
