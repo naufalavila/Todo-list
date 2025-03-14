@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('deadline');
             $table->text('description');
-            $table->string('status')->nullable();
+            $table->string('status')->default('uncompleted');
             $table->timestamps();
         });
     }
