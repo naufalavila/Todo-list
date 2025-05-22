@@ -13,19 +13,25 @@ class AuthManager extends Controller
         return view('auth.login');
     }
 
-    function loginPost(Request $request) {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+   function loginPost(Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password');
 
-        if(Auth::attempt($credentials)) {
-            return redirect()->intended(route("home"));
+    if (Auth::attempt($credentials)) {
+        // Cek role setelah berhasil login
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route("admin.dashboard");
+        } else {
+            return redirect()->route("home");
         }
-        return redirect(route("login"))->with("error", "Invalid password or email");
     }
+
+    return redirect(route("login"))->with("error", "Invalid password or email");
+}
 
     function gotoreg()
     {
