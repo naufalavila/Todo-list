@@ -54,6 +54,7 @@ class AuthManager extends Controller
     }
 
     function registerPost(Request $request) {
+
         $request->validate([
             'fullname' => 'required',
             'email' => 'required|email',
@@ -64,6 +65,7 @@ class AuthManager extends Controller
         $user->name = $request->fullname;
         $user->email = $request->email;
         $user->password = $request->password; 
+        $user->role = 'user';
 
         if ($user->save()) {
             return redirect(route("login"))->with("success", "Registration successful!");
