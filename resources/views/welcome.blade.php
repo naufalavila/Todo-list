@@ -21,9 +21,70 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+        body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+       body.dark-mode {
+        background-color: #121212;
+        color: #f0f0f0;
+    }
+
+    body.dark-mode .bg-body {
+        background-color: #1e1e1e !important;
+    }
+
+    body.dark-mode .text-gray-dark {
+        color: #e0e0e0 !important;
+    }
+
+    body.dark-mode .btn-dark {
+        background-color: #333;
+        border-color: #333;
+    }
+
+    body.dark-mode .card,
+    body.dark-mode .alert {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        border-color: #333;
+    }
+
+    body.dark-mode .navbar {
+        background-color: #1e1e1e !important;
+    }
+
+    body.dark-mode .btn-outline-success {
+        color: #0f0;
+        border-color: #0f0;
+    }
+
+    body.dark-mode .btn-outline-light {
+        color: #ccc;
+        border-color: #ccc;
+    }
+
+     body.dark-mode input[type="text"],
+    body.dark-mode input[type="datetime-local"],
+    body.dark-mode textarea {
+        background-color: #333 !important;
+        color: #fff !important;
+        border: 1px solid #555 !important;
+    }
+
+    body.dark-mode input[type="text"]::placeholder,
+    body.dark-mode textarea::placeholder {
+        color: #bbb !important;
+    }
+
     </style>
 @endsection
 @section("content")
+<div class="container d-flex justify-content-end mt-3">
+    <button id="dark-mode-toggle" class="btn btn-dark">Toggle Dark Mode</button>
+</div>
+
     <main class="flex-shrink-0 mt-5">
         <div class="container" style="max-width: 800px">
             @if (session()->has("success"))
@@ -86,4 +147,30 @@
             </div>
         </div>
     </main>
+@endsection
+
+@section("script")
+<script>
+    document.getElementById('dark-mode-toggle').addEventListener('click', function () {
+        const isDark = document.body.classList.toggle('dark-mode');
+        fetch('/dark-mode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ dark_mode: isDark })
+        });
+    });
+
+    window.onload = function () {
+        fetch('/dark-mode-status')
+            .then(res => res.json())
+            .then(data => {
+                if (data.dark_mode) {
+                    document.body.classList.add('dark-mode');
+                }
+            });
+    }
+</script>
 @endsection
