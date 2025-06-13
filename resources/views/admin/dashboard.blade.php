@@ -5,7 +5,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-
+<form method="GET" action="{{ route('logout') }}" class="position-absolute top-0 end-0 mt-3 me-3">
+    @csrf
+    <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+</form>
 <div class="container mt-5">
     <h1 class="mb-4">Selamat Datang di <span class="text-primary">Admin Dashboard</span></h1>
 
