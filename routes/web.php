@@ -59,4 +59,3 @@ Route::middleware("auth")->group( function () {
     ->name("task.update");
 
 });
-
